@@ -14,9 +14,8 @@ FROM caddy as production-stage
 
 COPY --from=build-stage /app/build /usr/share/caddy
 COPY ./caddy/Caddyfile /etc/caddy/Caddyfile
-EXPOSE 80
-EXPOSE 443
-EXPOSE 2019
+
+EXPOSE 8080
 
 WORKDIR /usr/share/caddy
 
