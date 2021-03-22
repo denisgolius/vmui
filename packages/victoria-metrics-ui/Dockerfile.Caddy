@@ -10,7 +10,14 @@ RUN cd /app && npm install
 COPY . /app
 RUN npm run build
 
-FROM caddy:2.3.0-builder as production-stage
-
+FROM caddy as production-stage
 
 COPY --from=build-stage /app/build /usr/share/caddy
+COPY ./caddy/Caddyfile /etc/caddy/Caddyfile
+EXPOSE 80
+EXPOSE 443
+EXPOSE 2019
+
+WORKDIR /usr/share/caddy
+
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
